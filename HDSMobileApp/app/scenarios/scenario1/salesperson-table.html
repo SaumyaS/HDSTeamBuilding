@@ -1,0 +1,41 @@
+﻿<div class="row" id="tableHeader">
+
+    <div class="col-md-6 col-xs-12">
+        <h3>Sales Person Table</h3>
+    </div>
+
+    <div class="col-md-4 col-md-offset-2 col-xs-12">
+        <input type="text" class="form-control  salesSearch" placeholder="Enter Name" ng-model="value" ng-change="doSearch()"/>
+        {{value}}
+
+        <span id="searchClear" class="fa fa-times-circle-o" ng-click="inputClear()" ng-show="searchTerm.length > 0"></span>
+    </div>
+
+
+</div>
+
+<div class="table-responsive" id="tableRow" ng-show="value.length > 0">
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>
+                    <a>First Name</a>
+                </th>
+                <th>
+                    <a>Last Name</a>
+                </th>
+                <th>
+                    <a>Job Title</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="salesPerson in salesPersonCtrl.salesPersons">
+                <td>{{salesPerson.firstName}}</td>
+                <td>{{salesPerson.lastName}}</td>
+                <td>{{salesPerson.jobTitle}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
