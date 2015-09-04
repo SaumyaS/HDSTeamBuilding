@@ -12,56 +12,45 @@ var SalesPersonController = (function () {
                 restrict: "E",
                 templateUrl: "/app/scenarios/scenario1/salesperson-table.html",
                 controller: ["$scope", "$http", function ($scope, $http) {
-                        var salesPersons = [], sales = this;
+                        var salesPersons = [], sales = this, peopleArray = [];
                         salesPersons = Data.getSalesPersons();
                         console.log(salesPersons);
                         sales.salesPersonFull = SalesPersonController.joinSalesData(salesPersons);
-                        var peopleArray = sales.salesPersonFull;
+                        peopleArray = sales.salesPersonFull;
                         console.log(sales.salesPersonFull);
                         $scope.inputClear = function () {
                             $scope.searchTerm = "";
                             jQuery('.salesSearch').focus();
                         };
-                        $scope.doSearch = function () {
-                            var searchTerm = this.value, tempArray = peopleArray, namesReturned = [];
-                            console.log("test1", searchTerm);
-                            if (searchTerm == "") {
-                                return;
-                            }
-                            else {
-                                for (var i = 0; i < tempArray.length; i++) {
-                                    var firstName = tempArray[i].firstName;
-                                    var lastName = tempArray[i].lastName;
-                                    firstName = angular.lowercase(firstName);
-                                    lastName = angular.lowercase(lastName);
-                                    if (firstName.indexOf(searchTerm) > -1) {
-                                        namesReturned[i] = tempArray[i];
-                                    }
-                                }
-                                //sales.salesPersons = namesReturned;
-                                console.log("tesst", namesReturned);
-                            }
-                        };
+                        //$scope.doSearch = function () {
+                        //    var searchTerm = this.value,
+                        //        tempArray = peopleArray,
+                        //        namesReturned = [];
+                        //    console.log("test1", searchTerm);
+                        //    if (searchTerm == "") {
+                        //        return;
+                        //    } else {
+                        //        for (var i = 0; i < tempArray.length; i++) {
+                        //            var firstName = tempArray[i].firstName;
+                        //            var lastName = tempArray[i].lastName;
+                        //            firstName = angular.lowercase(firstName);
+                        //            lastName = angular.lowercase(lastName);
+                        //            if (firstName.indexOf(searchTerm) > -1) {
+                        //                namesReturned[i] = tempArray[i];
+                        //                //$scope.tempArray.splice(i, 1);
+                        //            }
+                        //        }
+                        //        // comment
+                        //        sales.salesPersons = namesReturned;
+                        //        console.log("tesst", namesReturned);
+                        //    }
+                        //};
                         // TODO debugging
                         // console.log("starting controller SalesPersonsController, sales=", Data.getSalesPersons());
                     }],
                 controllerAs: "salesPersonCtrl"
             };
         });
-        //ngApp.directive('ngModelSearchuser', function () {
-        //    return {
-        //        restrict: "A",
-        //        require: 'ngModel',
-        //        priority: 1,
-        //        link: function (scope, elm, attr, ngModelCtrl) {
-        //            elm.bind('blur', function () {
-        //                scope.$apply(function () {
-        //                    ngModelCtrl.$setViewValue(elm.val());
-        //                });
-        //            });
-        //        }
-        //    };     
-        //});
     };
     SalesPersonController.joinSalesData = function (salesPersons) {
         // loop through all sales people
