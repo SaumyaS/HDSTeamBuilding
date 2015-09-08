@@ -109,8 +109,10 @@
     <Content Include="app\scenarios\global\partials\footer.html" />
     <Content Include="app\scenarios\global\partials\navbar.html" />
     <Content Include="app\scenarios\scenario1\custom.css" />
+    <Content Include="app\scenarios\scenario1\salespeople-table.html" />
     <Content Include="app\scenarios\scenario1\instructions.txt" />
     <Content Include="app\scenarios\scenario2\instructions.txt" />
+    <Content Include="app\scenarios\scenario2\customer-table.html" />
     <Content Include="app\scenarios\scenario3\custom.css" />
     <Content Include="app\scenarios\scenario3\instructions.txt" />
     <Content Include="app\scenarios\scenario3\vacation-table.html" />
@@ -251,6 +253,8 @@
     <TypeScriptCompile Include="app\modules\psLog.ts" />
     <TypeScriptCompile Include="app\modules\ProcessLogs.ts" />
     <TypeScriptCompile Include="app\modules\psInstance.ts" />
+    <TypeScriptCompile Include="app\scenarios\scenario1\SalesPeopleController.ts" />
+    <TypeScriptCompile Include="app\scenarios\scenario2\CustomerPurchaseController.ts" />
     <TypeScriptCompile Include="app\scenarios\scenario4\SalesTerritoryController.ts" />
     <TypeScriptCompile Include="app\scenarios\scenario3\VacationController.ts" />
     <TypeScriptCompile Include="app\scenarios\scenario5\ProductLookupController.ts" />
