@@ -1,6 +1,7 @@
 ﻿"use strict";
 import Services = require("../../services/Services");
 import Data = require("../../modules/Data");
+import ArrayUtil = require("../../utils/ArrayUtil");
 
 class SalesPersonController implements WidgetView<any>{
 
@@ -15,55 +16,55 @@ class SalesPersonController implements WidgetView<any>{
                 templateUrl: "/app/scenarios/scenario1/salesperson-table.html",
                 controller: ["$scope", "$http", function ($scope, $http) {
                     var salesPersons = [],
-                        sales = this,
-                        peopleArray = [];
+                        peopleArray = [],
+                        salesHeader = [];
 
                     salesPersons = Data.getSalesPersons();
+                    //salesHeader = Data.getSalesOrderHeaders();
 
-                    console.log(salesPersons);
+                    //console.log('Full Sales header ', salesHeader);
 
-                    sales.salesPersonFull = SalesPersonController.joinSalesData(salesPersons);
-                    peopleArray = sales.salesPersonFull;
+                    //console.log(salesPersons);
 
-                    console.log(sales.salesPersonFull);
+                    this.salesPersonFull = SalesPersonController.joinSalesData(salesPersons);
+                    //peopleArray = this.salesPersonFull;
+
+                    // set an initial value to sort by
+                    $scope.predicate = 'businessEntityId';
+                    // set an initial reverse value
+                    // false is ascending true is decending
+                    // Made a decision to start by decending because the data looked nicer that way on the table
+                    $scope.reverse = false;
+
+                    $scope.order = function (predicate) {
+                        // if the same header is clicked on again reverse the sort boolean and set the current predicate
+                        $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : true;
+                        $scope.predicate = predicate;
+                    };
+
+                    //this.salesPersons = peopleArray;
+
+                    //console.log(this.salesPersonFull);
 
                     $scope.inputClear = function () {
                         $scope.searchTerm = "";
                         jQuery('.salesSearch').focus();
                     };
 
-                    //$scope.doSearch = function () {
-                    //    var searchTerm = this.value,
-                    //        tempArray = peopleArray,
-                    //        namesReturned = [];
-                    //    console.log("test1", searchTerm);
+                    //this function is called when a user clicks on a table row
+                    //the Person the user clicked on is passed in as Person
+                    $scope.display = function (salesPerson) {
+                        //return;
 
-                    //    if (searchTerm == "") {
-                    //        return;
-                    //    } else {
-                    //        for (var i = 0; i < tempArray.length; i++) {
-                    //            var firstName = tempArray[i].firstName;
-                    //            var lastName = tempArray[i].lastName;
+                        var salesHeaderPerson = SalesPersonController.joinSalesHeaderData(salesPerson);
 
-                    //            firstName = angular.lowercase(firstName);
-                    //            lastName = angular.lowercase(lastName);
+                        //set the scope variables 
+                        $scope.person = salesPerson;
+                    };
 
-                    //            if (firstName.indexOf(searchTerm) > -1) {
-                    //                namesReturned[i] = tempArray[i];
-                    //                //$scope.tempArray.splice(i, 1);
-                    //            }
-
-                    //        }
-
-                    //        // comment
-                    //        sales.salesPersons = namesReturned;
-                    //        console.log("tesst", namesReturned);
-                    //    }
-
-
-                        
-                    //};
+                  
                     // TODO debugging
+                    //commit
 
                     // console.log("starting controller SalesPersonsController, sales=", Data.getSalesPersons());
                 }],
@@ -85,6 +86,26 @@ class SalesPersonController implements WidgetView<any>{
         }
 
         return salesPersons;
+    }
+
+    public static joinSalesHeaderData(salesPersons: Models.SalesPerson): Models.SalesOrderHeader[] {
+        console.log('id ', salesPersons.businessEntityId);
+
+        // Get Sales header by id
+        var salesHeader = ArrayUtil.findAllPropValue(Data.getSalesOrderHeaders(), "salesPersonId", salesPersons.businessEntityId);
+         //Data.getSalesOrderHeaderById(salesPersons.businessEntityId);
+
+        for (var i = 0; i < salesHeader.length; i++) {
+            jQuery.extend(salesHeader[i], salesPersons);
+        }
+
+
+        
+
+        console.log('salesHeader ', salesHeader);
+        console.log('salesPersons ', salesPersons);
+
+        return salesHeader;
     }
  
 

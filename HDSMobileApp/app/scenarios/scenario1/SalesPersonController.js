@@ -1,5 +1,6 @@
 "use strict";
 var Data = require("../../modules/Data");
+var ArrayUtil = require("../../utils/ArrayUtil");
 var SalesPersonController = (function () {
     function SalesPersonController() {
     }
@@ -12,40 +13,40 @@ var SalesPersonController = (function () {
                 restrict: "E",
                 templateUrl: "/app/scenarios/scenario1/salesperson-table.html",
                 controller: ["$scope", "$http", function ($scope, $http) {
-                        var salesPersons = [], sales = this, peopleArray = [];
+                        var salesPersons = [], peopleArray = [], salesHeader = [];
                         salesPersons = Data.getSalesPersons();
-                        console.log(salesPersons);
-                        sales.salesPersonFull = SalesPersonController.joinSalesData(salesPersons);
-                        peopleArray = sales.salesPersonFull;
-                        console.log(sales.salesPersonFull);
+                        //salesHeader = Data.getSalesOrderHeaders();
+                        //console.log('Full Sales header ', salesHeader);
+                        //console.log(salesPersons);
+                        this.salesPersonFull = SalesPersonController.joinSalesData(salesPersons);
+                        //peopleArray = this.salesPersonFull;
+                        // set an initial value to sort by
+                        $scope.predicate = 'businessEntityId';
+                        // set an initial reverse value
+                        // false is ascending true is decending
+                        // Made a decision to start by decending because the data looked nicer that way on the table
+                        $scope.reverse = false;
+                        $scope.order = function (predicate) {
+                            // if the same header is clicked on again reverse the sort boolean and set the current predicate
+                            $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : true;
+                            $scope.predicate = predicate;
+                        };
+                        //this.salesPersons = peopleArray;
+                        //console.log(this.salesPersonFull);
                         $scope.inputClear = function () {
                             $scope.searchTerm = "";
                             jQuery('.salesSearch').focus();
                         };
-                        //$scope.doSearch = function () {
-                        //    var searchTerm = this.value,
-                        //        tempArray = peopleArray,
-                        //        namesReturned = [];
-                        //    console.log("test1", searchTerm);
-                        //    if (searchTerm == "") {
-                        //        return;
-                        //    } else {
-                        //        for (var i = 0; i < tempArray.length; i++) {
-                        //            var firstName = tempArray[i].firstName;
-                        //            var lastName = tempArray[i].lastName;
-                        //            firstName = angular.lowercase(firstName);
-                        //            lastName = angular.lowercase(lastName);
-                        //            if (firstName.indexOf(searchTerm) > -1) {
-                        //                namesReturned[i] = tempArray[i];
-                        //                //$scope.tempArray.splice(i, 1);
-                        //            }
-                        //        }
-                        //        // comment
-                        //        sales.salesPersons = namesReturned;
-                        //        console.log("tesst", namesReturned);
-                        //    }
-                        //};
+                        //this function is called when a user clicks on a table row
+                        //the Person the user clicked on is passed in as Person
+                        $scope.display = function (salesPerson) {
+                            //return;
+                            var salesHeaderPerson = SalesPersonController.joinSalesHeaderData(salesPerson);
+                            //set the scope variables 
+                            $scope.person = salesPerson;
+                        };
                         // TODO debugging
+                        //commit
                         // console.log("starting controller SalesPersonsController, sales=", Data.getSalesPersons());
                     }],
                 controllerAs: "salesPersonCtrl"
@@ -63,6 +64,18 @@ var SalesPersonController = (function () {
             jQuery.extend(salesPersons[i], person);
         }
         return salesPersons;
+    };
+    SalesPersonController.joinSalesHeaderData = function (salesPersons) {
+        console.log('id ', salesPersons.businessEntityId);
+        // Get Sales header by id
+        var salesHeader = ArrayUtil.findAllPropValue(Data.getSalesOrderHeaders(), "salesPersonId", salesPersons.businessEntityId);
+        //Data.getSalesOrderHeaderById(salesPersons.businessEntityId);
+        for (var i = 0; i < salesHeader.length; i++) {
+            jQuery.extend(salesHeader[i], salesPersons);
+        }
+        console.log('salesHeader ', salesHeader);
+        console.log('salesPersons ', salesPersons);
+        return salesHeader;
     };
     SalesPersonController.prototype.deregister = function (appTools, view) {
     };
