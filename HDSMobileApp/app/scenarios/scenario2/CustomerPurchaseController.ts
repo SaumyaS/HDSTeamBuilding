@@ -53,7 +53,7 @@ class CustomerPurchaseController implements WidgetView<any> {
                         //jQuery.extend(tempObj, territory);
                         //jQuery.extend(tempObj, Data.getSalesPeopleByTerritoryId(territory.territoryId));
                         //jQuery.extend(tempObj, tempObj.businessEntityId);
-                        var salesPeople = Data.getSalesPeopleByTerritoryId(territory.territoryId);
+                        var person = Data.getPersonById();
                         var employees = Data.getEmployees();
 
                         for (var i = 0; i < salesPeople.length; i++) {
