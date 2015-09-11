@@ -24,7 +24,7 @@ class CustomerPurchaseController implements WidgetView<any> {
                 controller: ["$scope", "$http", function ($scope, $http) {
                     
                     //get all the territories and set them as an instance variable for the controller
-                    this.customers = Data.getCustomers();
+                    this.customers = Data.getCustomers().slice(0,50);
                     console.log(this.customers);
 
                     // set an initial value to sort by
