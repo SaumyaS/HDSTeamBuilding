@@ -47,7 +47,7 @@
         <!-- orderBy the predicate which is a string and the argumetn for the filter is reverse which can be true or false -->
         <!-- if reverse is false ascending if true is decending  -->
         <tbody>
-            <tr ng-repeat="customer in CustomerCtrl.customers | filter: searchTerm | orderBy: predicate:reverse" ng-click="showTerritory(territory)" data-toggle="modal" data-target="#myModal">
+            <tr ng-repeat="customer in CustomerCtrl.customers | filter: searchTerm | orderBy: predicate:reverse" ng-click="showCustomerSales(customersales)" data-toggle="modal" data-target="#myModal">
                 <!-- we are repeating a table row for every product in our controller instance variable products -->
                 <td>{{customer.accountNumber}}</td>
                 <td>{{customer.customerId}}</td>

@@ -1,3 +1,41 @@
-﻿body {
+﻿/* Change background-color of menu bar */
 
-}
+    .navbar-default {
+       background-color: #333333;
+    }
+
+/* Change text color of menu */
+
+    .navbar-default .navbar-nav>li>a {
+        color: white;
+    }
+
+/* Change hover effect of menu text */
+
+    .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover {
+        background-color:#000;   
+    }
+
+    .navbar-default .navbar-nav>li>a:hover {
+        background-color:#000;
+    }
+
+    .navbar-default .navbar-nav>.open>a:focus {
+        background-color:#000;
+    }
+
+    .navbar-default .dropdown-menu>li>a:hover {
+        background-color:#000;
+    }
+
+/* Change background-color of body */
+
+    body {
+        background-color: white;
+    }
+
+/* Change background-color of footer */
+
+/* Change background-color of  */
+
+/* Change text color */

@@ -12,6 +12,10 @@ module Data {
         return DataCache.customerData;
     }
 
+    export function getCustomersById(customerId: number): Models.Customer[] {
+        return ArrayUtil.findPropValue(getCustomers(), "customerId", customerId);
+    }
+
 
     export function getEmployeeById(businessEntityId: number): Models.Employee {
         return ArrayUtil.findPropValue(getEmployees(), "businessEntityId", businessEntityId);

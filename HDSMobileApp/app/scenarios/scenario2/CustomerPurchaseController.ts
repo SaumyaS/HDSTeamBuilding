@@ -50,21 +50,23 @@ class CustomerPurchaseController implements WidgetView<any> {
                     //the product the user clicked on is passed in as product
                     $scope.showCustomerSales = function (customersales) {
                         
-                        var customer = Data.getCustomerById();
-                        var salesorder = Data.getSalesOrderDetailById();
+                        var customer = Data.getCustomerById(customersales.customerId);
+                        var salesorder = Data.getSalesOrderHeaderById(customersales.CustomerId);
                         //console.log(salesorder);
 
-                        for (var i = 0; i < customer.length; i++) {
+                        //for (var i = 0; i < customer.length; i++) {
 
-                            for (var j = 0; j < salesorder.length; j++) {
+                        //    for (var j = 0; j < salesorder.length; j++) {
 
-                                if (customer[i].customerId == salesorder[j].customerId) {
-                                    jQuery.extend(customer[i], salesorder[j]);
-                                }
-                            }
-                        }
-                        $scope.custSales = customer;
-                        $scope.customersales = customersales;
+                        //        if (customer[i].customerId == salesorder[j].customerId) {
+                        //            jQuery.extend(customer[i], salesorder[j]);
+                        //        }
+                        //    }
+                        //}
+                        //$scope.custSales = customer;
+                        //$scope.customersales = customersales;
+                        console.log(customer);
+                        console.log(salesorder);
                     };
                 }],
                 // add an alias for a controller
