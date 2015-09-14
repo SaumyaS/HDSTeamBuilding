@@ -24,7 +24,7 @@ class CustomerPurchaseController implements WidgetView<any> {
                 controller: ["$scope", "$http", function ($scope, $http) {
                     
                     //get all the territories and set them as an instance variable for the controller
-                    this.customers = Data.getCustomers().slice(0, 50);
+                    this.customers = Data.getCustomers();
                     // console.log(this.customers);
 
                     // set an initial value to sort by
@@ -50,23 +50,11 @@ class CustomerPurchaseController implements WidgetView<any> {
                     //the product the user clicked on is passed in as product
                     $scope.showCustomerSales = function (customersales) {
                         
-                        var customer = Data.getCustomerById(customersales.customerId);
-                        var salesorder = Data.getSalesOrderHeaderById(customersales.CustomerId);
-                        //console.log(salesorder);
+                        //return sales order headres for specific customer
+                        var customer = Data.getCustomersByCustomerId(customersales.customerId);
+                        $scope.custSales = customer;
+                        console.log($scope.custSales);
 
-                        //for (var i = 0; i < customer.length; i++) {
-
-                        //    for (var j = 0; j < salesorder.length; j++) {
-
-                        //        if (customer[i].customerId == salesorder[j].customerId) {
-                        //            jQuery.extend(customer[i], salesorder[j]);
-                        //        }
-                        //    }
-                        //}
-                        //$scope.custSales = customer;
-                        //$scope.customersales = customersales;
-                        console.log(customer);
-                        console.log(salesorder);
                     };
                 }],
                 // add an alias for a controller

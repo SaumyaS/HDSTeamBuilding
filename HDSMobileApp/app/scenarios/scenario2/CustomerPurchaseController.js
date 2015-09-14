@@ -19,7 +19,7 @@ var CustomerPurchaseController = (function () {
                 //add in a controller
                 controller: ["$scope", "$http", function ($scope, $http) {
                         //get all the territories and set them as an instance variable for the controller
-                        this.customers = Data.getCustomers().slice(0, 50);
+                        this.customers = Data.getCustomers();
                         // console.log(this.customers);
                         // set an initial value to sort by
                         $scope.predicate = 'customerId';
@@ -40,20 +40,10 @@ var CustomerPurchaseController = (function () {
                         //this function is called when a user clicks on a table row
                         //the product the user clicked on is passed in as product
                         $scope.showCustomerSales = function (customersales) {
-                            var customer = Data.getCustomerById(customersales.customerId);
-                            var salesorder = Data.getSalesOrderHeaderById(customersales.CustomerId);
-                            //console.log(salesorder);
-                            //for (var i = 0; i < customer.length; i++) {
-                            //    for (var j = 0; j < salesorder.length; j++) {
-                            //        if (customer[i].customerId == salesorder[j].customerId) {
-                            //            jQuery.extend(customer[i], salesorder[j]);
-                            //        }
-                            //    }
-                            //}
-                            //$scope.custSales = customer;
-                            //$scope.customersales = customersales;
-                            console.log(customer);
-                            console.log(salesorder);
+                            //return sales order headres for specific customer
+                            var customer = Data.getCustomersByCustomerId(customersales.customerId);
+                            $scope.custSales = customer;
+                            console.log($scope.custSales);
                         };
                     }],
                 // add an alias for a controller
