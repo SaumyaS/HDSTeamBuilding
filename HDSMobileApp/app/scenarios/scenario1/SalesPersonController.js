@@ -1,6 +1,5 @@
 "use strict";
 var Data = require("../../modules/Data");
-var ArrayUtil = require("../../utils/ArrayUtil");
 var SalesPersonController = (function () {
     function SalesPersonController() {
     }
@@ -15,26 +14,28 @@ var SalesPersonController = (function () {
                 controller: ["$scope", "$http", function ($scope, $http) {
                         var salesPersons = [], peopleArray = [], salesHeader = [];
                         salesPersons = Data.getSalesPersons();
-                        //salesHeader = Data.getSalesOrderHeaders();
+                        // Get Sales Person data joined with Employee and Person
                         this.salesPersonFull = SalesPersonController.joinSalesData(salesPersons);
-                        //peopleArray = this.salesPersonFull;
                         // set an initial value to sort by
                         $scope.predicate = 'businessEntityId';
-                        $scope.predicate2 = 'salesOrderNumber';
+                        $scope.predicateModal = 'salesOrderNumber';
                         // set an initial reverse value
                         // false is ascending true is decending
                         // Made a decision to start by decending because the data looked nicer that way on the table
                         $scope.reverse = false;
+                        $scope.reverseModal = false;
                         $scope.order = function (predicate) {
                             // if the same header is clicked on again reverse the sort boolean and set the current predicate
                             $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : true;
                             $scope.predicate = predicate;
                         };
-                        $scope.order2 = function (predicate) {
+                        // Order for the Modal
+                        $scope.orderModal = function (predicate) {
                             // if the same header is clicked on again reverse the sort boolean and set the current predicate
-                            $scope.reverse2 = ($scope.predicate2 === predicate) ? !$scope.reverse2 : true;
-                            $scope.predicate2 = predicate;
+                            $scope.reverseModal = ($scope.predicateModal === predicate) ? !$scope.reverseModal : true;
+                            $scope.predicateModal = predicate;
                         };
+                        // Clears Search term input
                         $scope.inputClear = function () {
                             $scope.searchTerm = "";
                             jQuery('.salesSearch').focus();
@@ -42,16 +43,13 @@ var SalesPersonController = (function () {
                         //this function is called when a user clicks on a table row
                         //the Person the user clicked on is passed in as Person
                         $scope.display = function (salesPerson) {
-                            var salesHeaderPerson = SalesPersonController.joinSalesHeaderData(salesPerson);
-                            console.log(salesPerson);
-                            console.log(salesHeaderPerson);
+                            var salesHeaderPerson = Data.getSalesOrderHeaderBySalesPersonId(salesPerson.businessEntityId);
                             //set the scope variables 
                             $scope.person = salesPerson;
                             $scope.salesHeaders = salesHeaderPerson;
                         };
                         // TODO debugging
                         //commit
-                        // console.log("starting controller SalesPersonsController, sales=", Data.getSalesPersons());
                     }],
                 controllerAs: "salesPersonCtrl"
             };
@@ -68,11 +66,6 @@ var SalesPersonController = (function () {
             jQuery.extend(salesPersons[i], person);
         }
         return salesPersons;
-    };
-    SalesPersonController.joinSalesHeaderData = function (salesPerson) {
-        // Get Sales header by id
-        var salesHeader = ArrayUtil.findAllPropValue(Data.getSalesOrderHeaders(), "salesPersonId", salesPerson.businessEntityId);
-        return salesHeader;
     };
     SalesPersonController.prototype.deregister = function (appTools, view) {
     };

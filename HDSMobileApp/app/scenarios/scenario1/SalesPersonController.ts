@@ -20,18 +20,19 @@ class SalesPersonController implements WidgetView<any>{
                         salesHeader = [];
 
                     salesPersons = Data.getSalesPersons();
-                    //salesHeader = Data.getSalesOrderHeaders();
 
+                    // Get Sales Person data joined with Employee and Person
                     this.salesPersonFull = SalesPersonController.joinSalesData(salesPersons);
-                    //peopleArray = this.salesPersonFull;
 
                     // set an initial value to sort by
                     $scope.predicate = 'businessEntityId';
-                    $scope.predicate2 = 'salesOrderNumber';
+                    $scope.predicateModal = 'salesOrderNumber';
+                    
                     // set an initial reverse value
                     // false is ascending true is decending
                     // Made a decision to start by decending because the data looked nicer that way on the table
                     $scope.reverse = false;
+                    $scope.reverseModal = false;
 
                     $scope.order = function (predicate) {
                         // if the same header is clicked on again reverse the sort boolean and set the current predicate
@@ -39,12 +40,14 @@ class SalesPersonController implements WidgetView<any>{
                         $scope.predicate = predicate;
                     };
 
-                    $scope.order2 = function (predicate) {
+                    // Order for the Modal
+                    $scope.orderModal = function (predicate) {
                         // if the same header is clicked on again reverse the sort boolean and set the current predicate
-                        $scope.reverse2 = ($scope.predicate2 === predicate) ? !$scope.reverse2 : true;
-                        $scope.predicate2 = predicate;
+                        $scope.reverseModal = ($scope.predicateModal === predicate) ? !$scope.reverseModal : true;
+                        $scope.predicateModal = predicate;
                     };
 
+                    // Clears Search term input
                     $scope.inputClear = function () {
                         $scope.searchTerm = "";
                         jQuery('.salesSearch').focus();
@@ -54,10 +57,8 @@ class SalesPersonController implements WidgetView<any>{
                     //the Person the user clicked on is passed in as Person
                     $scope.display = function (salesPerson) {
 
-                        var salesHeaderPerson = SalesPersonController.joinSalesHeaderData(salesPerson);
+                        var salesHeaderPerson = Data.getSalesOrderHeaderBySalesPersonId(salesPerson.businessEntityId);
 
-                        console.log(salesPerson);
-                        console.log(salesHeaderPerson);
                         //set the scope variables 
                         $scope.person = salesPerson;
                         $scope.salesHeaders = salesHeaderPerson; 
@@ -66,8 +67,6 @@ class SalesPersonController implements WidgetView<any>{
                   
                     // TODO debugging
                     //commit
-
-                    // console.log("starting controller SalesPersonsController, sales=", Data.getSalesPersons());
                 }],
                 controllerAs: "salesPersonCtrl"               
             };
@@ -88,15 +87,6 @@ class SalesPersonController implements WidgetView<any>{
 
         return salesPersons;
     }
-
-    public static joinSalesHeaderData(salesPerson: Models.SalesPerson): Models.SalesOrderHeader[] {
-
-        // Get Sales header by id
-        var salesHeader = ArrayUtil.findAllPropValue(Data.getSalesOrderHeaders(), "salesPersonId", salesPerson.businessEntityId);
-
-        return salesHeader;
-    }
- 
 
     public deregister(appTools: Main, view: SalesPersonController) {
 
