@@ -64,22 +64,52 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dissmiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <!--product is a scope variable and is set to whatever product the user clicks on-->
-                    <h2 class="modal-title" id="myModalLabel">test</h2>
+                    <h2 class="modal-title" id="myModalLabel">Sales Headers - {{person.firstName}} {{person.lastName}}</h2>
                 </div>
-                <div class="modal-body">
-                    <!-- we will repeat this row for every attribute in the product object -->
-                    <div class="row">
-                        <div class="col-md-6">
-                            <!-- key will be the attribute name such as 'color' -->
-                            <p><strong>test</strong></p>
-                        </div>
-                        <div class="col-md-6">
-                            <!-- value will be the attributes value such as 'black' -->
-                            <!-- if value isn't a blank string output value. if it is blank output "n/a" -->
-                            <p>test</p>
-                        </div>
-                    </div>
-                </div>
+                
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                <a href="" ng-click="order2('salesOrderNumber')">Sales Order ID</a>
+                                <!-- down arrow will show only if the predicate matches the header and reverse is true meaning descending -->
+                                <span class="glyphicon glyphicon-triangle-bottom" ng-show="predicate2 == 'salesOrderNumber' && reverse2"></span>
+                                <!-- up arrow will show only if the predicate matches the header and the reverse is false meaning ascending -->
+                                <span class="glyphicon glyphicon-triangle-top" ng-show="predicate2 == 'salesOrderNumber' && !reverse2"></span>
+                            </th>
+                            <th>
+                                <a href="" ng-click="order2('purchaseOrderNumber')">Purchase Order Number</a>
+                                <!-- down arrow will show only if the predicate matches the header and reverse is true meaning descending -->
+                                <span class="glyphicon glyphicon-triangle-bottom" ng-show="predicate2 == 'purchaseOrderNumber' && reverse2"></span>
+                                <!-- up arrow will show only if the predicate matches the header and the reverse is false meaning ascending -->
+                                <span class="glyphicon glyphicon-triangle-top" ng-show="predicate2 == 'purchaseOrderNumber' && !reverse2"></span>
+                            </th>
+                            <th>
+                                <a href="" ng-click="order2('subTotal')">Sub Total</a>
+                                <!-- down arrow will show only if the predicate matches the header and reverse is true meaning descending -->
+                                <span class="glyphicon glyphicon-triangle-bottom" ng-show="predicate2 == 'subTotal' && reverse2"></span>
+                                <!-- up arrow will show only if the predicate matches the header and the reverse is false meaning ascending -->
+                                <span class="glyphicon glyphicon-triangle-top" ng-show="predicate2 == 'subTotal' && !reverse2"></span>
+                            </th>
+                            <th>
+                                <a href="" ng-click="order2('totalDue')">Total Due</a>
+                                <!-- down arrow will show only if the predicate matches the header and reverse is true meaning descending -->
+                                <span class="glyphicon glyphicon-triangle-bottom" ng-show="predicate2 == 'totalDue' && reverse2"></span>
+                                <!-- up arrow will show only if the predicate matches the header and the reverse is false meaning ascending -->
+                                <span class="glyphicon glyphicon-triangle-top" ng-show="predicate2 == 'totalDue' && !reverse2"></span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="salesHeader in salesHeaders | orderBy: predicate2:reverse2">
+                            <td>{{salesHeader.salesOrderNumber}}</td>
+                            <td>{{salesHeader.purchaseOrderNumber}}</td>
+                            <td>{{salesHeader.subTotal}}</td>
+                            <td>{{salesHeader.totalDue}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
                 </div>
