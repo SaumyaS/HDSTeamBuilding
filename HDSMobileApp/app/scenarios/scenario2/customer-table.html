@@ -1,7 +1,7 @@
 ﻿<div class="row" id="tableHeader">
 
     <div class="col-md-6 col-xs-12">
-        <h3>Territory Table</h3>
+        <h3>Customer Table</h3>
     </div>
 
     <div class="col-md-4 col-md-offset-2 col-xs-12">
@@ -20,26 +20,26 @@
             <tr>
                 <th>
                     <!--when header is clicked call order function in scope passing the string of the attribute-->
-                    <a href="" ng-click="order('territoryId')">Account #</a>
+                    <a href="" ng-click="order('accountNumber')">Account #</a>
                     <!-- down arrow will show only if the predicate matches the header and reverse is true meaning descending -->
-                    <span class="fa fa-sort-desc" ng-show="predicate == 'territoryId' && reverse"></span>
+                    <span class="fa fa-sort-desc" ng-show="predicate == 'accountNumber' && reverse"></span>
                     <!-- up arrow will show only if the predicate matches the header and the reverse is false meaning ascending -->
+                    <span class="fa fa-sort-asc" ng-show="predicate == 'accountNumber' && !reverse"></span>
+                </th>
+                <th>
+                    <a href="" ng-click="order('customerId')">ID</a>
+                    <span class="fa fa-sort-desc" ng-show="predicate == 'customerId' && reverse"></span>
+                    <span class="fa fa-sort-asc" ng-show="predicate == 'customerId' && !reverse"></span>
+                </th>
+                <th>
+                    <a href="" ng-click="order('storeId')">Store ID</a>
+                    <span class="fa fa-sort-desc" ng-show="predicate == 'storeId' && reverse"></span>
+                    <span class="fa fa-sort-asc" ng-show="predicate == 'storeId' && !reverse"></span>
+                </th>
+                <th>
+                    <a href="" ng-click="order('territoryId')">Territory ID</a>
+                    <span class="fa fa-sort-desc" ng-show="predicate == 'territoryId' && reverse"></span>
                     <span class="fa fa-sort-asc" ng-show="predicate == 'territoryId' && !reverse"></span>
-                </th>
-                <th>
-                    <a href="" ng-click="order('name')">ID</a>
-                    <span class="fa fa-sort-desc pull-right" ng-show="predicate == 'name' && reverse"></span>
-                    <span class="fa fa-sort-asc pull-right" ng-show="predicate == 'name' && !reverse"></span>
-                </th>
-                <th>
-                    <a href="" ng-click="order('salesYTD')">Store ID</a>
-                    <span class="fa fa-sort-desc pull-right" ng-show="predicate == 'salesYTD' && reverse"></span>
-                    <span class="fa fa-sort-asc pull-right" ng-show="predicate == 'salesYTD' && !reverse"></span>
-                </th>
-                <th>
-                    <a href="" ng-click="order('salesLastYear')">Territory ID</a>
-                    <span class="fa fa-sort-desc pull-right" ng-show="predicate == 'salesLastYear' && reverse"></span>
-                    <span class="fa fa-sort-asc pull-right" ng-show="predicate == 'salesLastYear' && !reverse"></span>
                 </th>
             </tr>
         </thead>
@@ -64,14 +64,14 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                    
-                    <h2 class="modal-title" id="myModalLabel">{{territory.name}}</h2>
+                    <h2 class="modal-title" id="myModalLabel">{{customer.accountNumber}}</h2>
                 </div>
                 <div class="modal-body">
-                    <div class="row" ng-repeat="person in terrSalesPeople">
+                    <div class="row" ng-repeat="customer in custSales">
                         <!--<p ng-repeat="(key,value) in person">{{key}} : {{value}}</p>-->
                         <div class="col-md-12">
                             <ul class="list-unstyled">
-                                <li ng-repeat="(key,value) in person">
+                                <li ng-repeat="(key,value) in customer">
                                     <strong>{{key}}</strong> : {{value}}
                                 </li>
                             </ul>

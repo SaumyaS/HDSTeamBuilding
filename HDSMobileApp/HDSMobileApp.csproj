@@ -121,7 +121,6 @@
     <Content Include="app\scenarios\scenario3\scenario3.html" />
     <Content Include="app\scenarios\scenario4\custom.css" />
     <Content Include="app\scenarios\scenario4\instructions.txt" />
-    <Content Include="app\scenarios\scenario4\territory-table.html" />
     <Content Include="app\scenarios\scenario4\scenario4.html" />
     <Content Include="app\scenarios\scenario5\custom.css" />
     <Content Include="app\scenarios\scenario5\instructions.txt" />

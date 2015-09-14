@@ -24,11 +24,11 @@ class CustomerPurchaseController implements WidgetView<any> {
                 controller: ["$scope", "$http", function ($scope, $http) {
                     
                     //get all the territories and set them as an instance variable for the controller
-                    this.customers = Data.getCustomers().slice(0,50);
-                    console.log(this.customers);
+                    this.customers = Data.getCustomers().slice(0, 50);
+                    // console.log(this.customers);
 
                     // set an initial value to sort by
-                    $scope.predicate = 'customerID';
+                    $scope.predicate = 'customerId';
                     // set an initial reverse value
                     // false is ascending true is decending
                     // Made a decision to start by decending because the data looked nicer that way on the table
@@ -48,26 +48,23 @@ class CustomerPurchaseController implements WidgetView<any> {
 
                     //this function is called when a user clicks on a table row
                     //the product the user clicked on is passed in as product
-                    $scope.showTerritory = function (territory) {
-                        //var tempObj = {};
-                        //jQuery.extend(tempObj, territory);
-                        //jQuery.extend(tempObj, Data.getSalesPeopleByTerritoryId(territory.territoryId));
-                        //jQuery.extend(tempObj, tempObj.businessEntityId);
-                        var person = Data.getPersonById();
-                        var employees = Data.getEmployees();
+                    $scope.showCustomerSales = function (customersales) {
+                        
+                        var customer = Data.getCustomerById();
+                        var salesorder = Data.getSalesOrderDetailById();
+                        //console.log(salesorder);
 
-                        for (var i = 0; i < salesPeople.length; i++) {
+                        for (var i = 0; i < customer.length; i++) {
 
-                            for (var j = 0; j < employees.length; j++) {
+                            for (var j = 0; j < salesorder.length; j++) {
 
-                                if (salesPeople[i].businessEntityId == employees[j].businessEntityId) {
-                                    jQuery.extend(salesPeople[i], employees[j]);
+                                if (customer[i].customerId == salesorder[j].customerId) {
+                                    jQuery.extend(customer[i], salesorder[j]);
                                 }
                             }
                         }
-                        console.log(salesPeople);
-                        $scope.terrSalesPeople = salesPeople;
-                        $scope.territory = territory;
+                        $scope.custSales = customer;
+                        $scope.customersales = customersales;
                     };
                 }],
                 // add an alias for a controller

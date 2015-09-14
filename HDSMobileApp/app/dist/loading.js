@@ -1,6 +1,6 @@
-﻿$(document).ajaxStart(function () {
-    $("#content").hide();
-    $(window.document.body).append($(
+﻿jQuery(document).ajaxStart(function () {
+    jQuery("#content").hide();
+    jQuery(window.document.body).append(jQuery(
         "<div class='container loading'>" +
             "<div class='row'>" +
                 "<div class='col-md-3 col-md-offset-5'>" +
@@ -11,14 +11,14 @@
         "</div>"
         ));
 
-    $("img").load(function() {
-          $(function () {
-            var $devour = $('.devour');
+    jQuery("img").load(function() {
+          jQuery(function () {
+            var jQuerydevour = jQuery('.devour');
             var timer = setInterval(function () {
-                var ln = $devour.text().length;
+                var ln = jQuerydevour.text().length;
                 if (ln == 0) clearInterval(timer);
 
-                $('.devour').text(function (i, v) {
+                jQuery('.devour').text(function (i, v) {
                     return v.substring(1);
                 });
             }, 150);
@@ -26,6 +26,6 @@
     });
 
     }).ajaxStop(function () {
-        $(".loading").remove();
-        $("#content").show();
+        jQuery(".loading").remove();
+        jQuery("#content").show();
     });

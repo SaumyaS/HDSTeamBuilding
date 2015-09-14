@@ -1,14 +1,14 @@
 "use strict";
 var Data = require("../../modules/Data");
-var ProductLookupController = (function () {
-    function ProductLookupController() {
+var SalesTerritoryController = (function () {
+    function SalesTerritoryController() {
     }
-    ProductLookupController.prototype.initView = function (appTools, ngApp) {
+    SalesTerritoryController.prototype.initView = function (appTools, ngApp) {
         // NOTE: DO NOT 'angular.module(...)', use the 'ngApp' parameter above
         this.setupProductLookupDirective(ngApp);
     };
-    ProductLookupController.prototype.setupProductLookupDirective = function (ngApp) {
-        // define a directive and now we can use products in the html
+    SalesTerritoryController.prototype.setupProductLookupDirective = function (ngApp) {
+        // define a directive
         ngApp.directive("territoryTable", function () {
             return {
                 // E is for element we are defining our own element
@@ -38,23 +38,15 @@ var ProductLookupController = (function () {
                             jQuery('.salesSearch').focus();
                         };
                         //this function is called when a user clicks on a table row
-                        //the product the user clicked on is passed in as product
+                        //the product the user clicked on is passed in as territory
                         $scope.showTerritory = function (territory) {
-                            //var tempObj = {};
-                            //jQuery.extend(tempObj, territory);
-                            //jQuery.extend(tempObj, Data.getSalesPeopleByTerritoryId(territory.territoryId));
-                            //jQuery.extend(tempObj, tempObj.businessEntityId);
+                            //getSalesPeopleByTerritoryId is a custom function in Data by James that returns an array of sales people
+                            //that match a given territory ID
                             var salesPeople = Data.getSalesPeopleByTerritoryId(territory.territoryId);
-                            var employees = Data.getEmployees();
-                            for (var i = 0; i < salesPeople.length; i++) {
-                                for (var j = 0; j < employees.length; j++) {
-                                    if (salesPeople[i].businessEntityId == employees[j].businessEntityId) {
-                                        jQuery.extend(salesPeople[i], employees[j]);
-                                    }
-                                }
-                            }
-                            console.log(salesPeople);
-                            $scope.terrSalesPeople = salesPeople;
+                            //joinEmployeeSalesPeople is a custom function by james in Data that will  join salespeople and employees based on territory ID
+                            var employeeSalesPeople = Data.joinEmployeeSalesPeople(territory.territoryId);
+                            //set scope variables
+                            $scope.terrSalesPeople = employeeSalesPeople;
                             $scope.territory = territory;
                         };
                     }],
@@ -63,8 +55,8 @@ var ProductLookupController = (function () {
             };
         });
     };
-    ProductLookupController.prototype.deregister = function (appTools, view) {
+    SalesTerritoryController.prototype.deregister = function (appTools, view) {
     };
-    return ProductLookupController;
+    return SalesTerritoryController;
 })();
-module.exports = ProductLookupController;
+module.exports = SalesTerritoryController;
