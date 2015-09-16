@@ -41,8 +41,8 @@ var CustomerPurchaseController = (function () {
                         //the product the user clicked on is passed in as product
                         $scope.showCustomerSales = function (customersales) {
                             //return sales order headres for specific customer
-                            var customer = Data.getCustomersByCustomerId(customersales.customerId);
-                            $scope.custSales = customer;
+                            var customerSalesOrders = Data.getSalesOrderHeadersByCustomerId(customersales.customerId);
+                            $scope.custSales = customerSalesOrders;
                             console.log($scope.custSales);
                         };
                     }],
