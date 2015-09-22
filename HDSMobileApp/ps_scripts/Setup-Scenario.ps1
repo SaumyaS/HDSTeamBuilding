@@ -10,7 +10,6 @@
     Write-Host -Foregroundcolor white "Lets make sure we are in master!"
     Write-Host -Foregroundcolor white "Comitting any current changes..."
     git add -A
-
     git commit -m "Adding all changes to reset scenario"
     git checkout master
     Write-Host -foregroundcolor white "Updating Master..."
@@ -23,9 +22,7 @@
         $scenario = Read-Host "Which scenario are you working on?"
 
             If ($session -eq 1) {
-                echo $scenario
                 switch ($scenario) {
-
                         1 {git branch -D session1scenario1; git checkout -b session1scenario1; git pull origin skeleton}
                         2 {git branch -D session1scenario2; git checkout -b session1scenario2; git pull origin skeleton}
                         3 {git branch -D session1scenario3; git checkout -b session1scenario3; git pull origin skeleton}
@@ -37,9 +34,7 @@
             }
 
             elseif ($session -eq 2) {
-                echo $scenario
                 switch ($scenario) {
-
                         1 {git branch -D session2scenario1; git checkout -b session2scenario1; git pull origin skeleton}
                         2 {git branch -D session2scenario2; git checkout -b session2scenario2; git pull origin skeleton}
                         3 {git branch -D session2scenario3; git checkout -b session2scenario3; git pull origin skeleton}
@@ -51,9 +46,7 @@
             }
 
             elseif ($session -eq 3) {
-                echo $scenario
                 switch ($scenario) {
-
                         1 {git branch -D session3scenario1; git checkout -b session3scenario1; git pull origin skeleton}
                         2 {git branch -D session3scenario2; git checkout -b session3scenario2; git pull origin skeleton}
                         3 {git branch -D session3scenario3; git checkout -b session3scenario3; git pull origin skeleton}
